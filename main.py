@@ -84,14 +84,16 @@ playerTwo = Player(397, 0)
 
 
 while True:
+    screen.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
 
         playerOne.checkHeldKeys(event)
+        playerTwo.checkHeldKeys(event)
 
     playerOne.createLine()
     playerTwo.createLine()
     
-
+    
     pygame.display.flip()
 
