@@ -69,27 +69,31 @@ class Player():
         return self.heldKeys
 
     def checkHeldKeys(self, events):
-        """Check the keys in keys and move accordingly."""
+        """Check what keys are being pressed and call the movePaddle function."""
 
         keys = self.getEvents(events)
 
         if keys:
             if 0 <= self.playerY < int(size[1] - self.playerHeight):
-                for key in keys:
-                    if 'w' in keys:
-                        self.playerY -= self.moveSpeed
+                #for key in keys:
+                if 'w' or 'UP' in keys:
+                    self.movePaddle('up')
+                elif 's' or 'DOWN' in keys:
+                    self.movePaddle('down')
 
-                    elif 's' in keys:
-                        self.playerY += self.moveSpeed
-
-                    elif 'UP' in keys:
-                        self.playerY -= self.moveSpeed
-
-                    elif 'DOWN' in keys:
-                        self.playerY += self.moveSpeed
         else:
             pass
         print(keys) # for debugging
+    
+    def movePaddle(self, direction):
+        """Moves the paddle a certain direction."""
+
+        if direction == 'up':
+            self.playerY -= self.moveSpeed
+
+        else:
+            self.playerY += self.moveSpeed
+
                 
 
 size = width, height = 1920, 1080
