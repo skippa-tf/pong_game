@@ -9,16 +9,18 @@ class Player():
         self.white = 255, 255, 255
         self.playerX = playerX
         self.playerY = playerY
+        self.playerHeight = height * 0.15
+        self.playerWidth = width * 0.0075
         self.playerNumber = playerNumber
         self.heldKeys = []
-        self.moveSpeed = 5
+        self.moveSpeed = height * 0.0125
 
         pass
 
 
     def createLine(self):
         """Draw the player to the screen."""  
-        player = pygame.draw.rect(screen, self.white, pygame.Rect(self.playerX, self.playerY, 3, 30))
+        player = pygame.draw.rect(screen, self.white, pygame.Rect(self.playerX, self.playerY, self.playerWidth, self.playerHeight))
 
         return player
 
@@ -31,7 +33,7 @@ class Player():
                 if i.key == pygame.K_w:
                     self.heldKeys.append('w')
 
-                if i.key == pygame.K_s:
+                elif i.key == pygame.K_s:
                     self.heldKeys.append('s')
 
                 else:
@@ -40,7 +42,7 @@ class Player():
                 if i.key == pygame.K_w:
                     self.heldKeys.remove('w')
 
-                if i.key == pygame.K_s:
+                elif i.key == pygame.K_s:
                     self.heldKeys.remove('s')
 
                 else:
@@ -51,7 +53,7 @@ class Player():
                 if i.key == pygame.K_UP:
                     self.heldKeys.append('UP')
 
-                if i.key == pygame.K_DOWN:
+                elif i.key == pygame.K_DOWN:
                     self.heldKeys.append('DOWN')
                 else:
                     pass
@@ -60,7 +62,7 @@ class Player():
                 if i.key == pygame.K_UP:
                     self.heldKeys.remove('UP')
 
-                if i.key == pygame.K_DOWN:
+                elif i.key == pygame.K_DOWN:
                     self.heldKeys.remove('DOWN')
                 else:
                     pass
@@ -72,7 +74,7 @@ class Player():
         keys = self.getEvents(events)
 
         if keys:
-            if int(self.playerY) <= 196:
+            if 0 <= self.playerY < int(size[1] - self.playerHeight):
                 for key in keys:
                     if 'w' in keys:
                         self.playerY -= self.moveSpeed
@@ -85,16 +87,16 @@ class Player():
 
                     elif 'DOWN' in keys:
                         self.playerY += self.moveSpeed
-            else:
-                pass
+        else:
+            pass
         print(keys) # for debugging
                 
 
-size = width, height = 400, 200
+size = width, height = 1920, 1080
 screen = pygame.display.set_mode(size)
 
 playerOne = Player(0, 0, 1)
-playerTwo = Player(397, 0, 2)
+playerTwo = Player(width - width * 0.0075, 0, 2)
 
 
 while True:
