@@ -12,7 +12,7 @@ class Player():
         self.playerHeight = height * 0.15
         self.playerWidth = width * 0.0075
         self.heldKeys = []
-        self.moveSpeed = height * 0.0125
+        self.moveSpeed = float(height) * 0.0125
         self.Controls = {
             pygame.K_w: 'w',
             pygame.K_s: 's',
@@ -24,7 +24,7 @@ class Player():
 
     def createLine(self):
         """Draw the player to the screen."""  
-        player = pygame.draw.rect(screen, self.playerColor, pygame.Rect(self.playerX, self.playerY, self.playerWidth, self.playerHeight))
+        player = pygame.draw.rect(screen, self.playerColor, pygame.Rect(float(self.playerX), float(self.playerY), self.playerWidth, self.playerHeight))
 
         return player
 
@@ -35,13 +35,13 @@ class Player():
             if i.type == pygame.KEYDOWN: #Track key presses here
                 self.heldKeys.append(self.Controls[i.key])
 
-            elif i.type ==pygame.KEYUP:
+            elif i.type == pygame.KEYUP: #Track key releases here
                 self.heldKeys.remove(self.Controls[i.key])
             
             return self.heldKeys
-            
+
         except KeyError:
-            pass
+            return self.heldKeys
 
 
     def checkHeldKeys(self, events):
@@ -52,25 +52,30 @@ class Player():
         if keys:
             for key in keys:
                 if 'w' or 'UP' in keys:
-                    self.movePaddle('up')
+                    self.playerY = self.movePaddle('up')
                     
                 elif 's' or 'DOWN' in keys:
-                    self.movePaddle('down')
+                    self.playerY = self.movePaddle('dn')
 
         else:
             pass
 
+        # Debugging code vvv
         print(keys)
-        print(self.playerY) # for debugging
+        print(self.playerY)
     
-    def movePaddle(self, direction):
+    def movePaddle(self, direction: str):
         """Moves the paddle a certain direction."""
 
-        if direction == 'up' and self.playerY > 0:
+        if direction == 'up': #and self.playerY > 0:
             self.playerY -= self.moveSpeed
 
-        elif direction == 'down' and self.playerY < (height - self.playerHeight):
+        elif direction == 'dn' and self.playerY < (height - self.playerHeight):
             self.playerY += self.moveSpeed
+
+        return self.playerY
+        
+
 
                 
 
