@@ -11,7 +11,6 @@ class Player():
         self.playerY = playerY
         self.playerHeight = height * 0.15
         self.playerWidth = width * 0.0075
-        self.playerNumber = playerNumber
         self.heldKeys = []
         self.moveSpeed = height * 0.0125
         self.Controls = {
@@ -32,14 +31,18 @@ class Player():
 
     def getEvents(self, i) -> list:
         """Keeps track of key presses/releases, and append/remove them from the list self.heldKeys[]."""
-        
-        if i.type == pygame.KEYDOWN: #Track key presses here
-            self.heldKeys.append(self.Controls[i.key])
-        
-        elif i.type ==pygame.KEYUP:
-            self.heldKeys.remove(self.Controls[i.key])
+        try:
+            if i.type == pygame.KEYDOWN: #Track key presses here
+                self.heldKeys.append(self.Controls[i.key])
 
-        return self.heldKeys
+            elif i.type ==pygame.KEYUP:
+                self.heldKeys.remove(self.Controls[i.key])
+            
+            return self.heldKeys
+            
+        except KeyError:
+            pass
+
 
     def checkHeldKeys(self, events):
         """Check what keys are being pressed and call the movePaddle function."""
