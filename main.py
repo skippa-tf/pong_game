@@ -5,8 +5,8 @@ pygame.init()
 class Player():
     """This class is used to create a player, and all of the player's capabilities."""
     
-    def __init__(self, playerX, playerY, playerNumber):
-        self.white = 255, 255, 255
+    def __init__(self, playerX, playerY):
+        self.playerColor = 255, 255, 255
         self.playerX = playerX
         self.playerY = playerY
         self.playerHeight = height * 0.15
@@ -25,7 +25,7 @@ class Player():
 
     def createLine(self):
         """Draw the player to the screen."""  
-        player = pygame.draw.rect(screen, self.white, pygame.Rect(self.playerX, self.playerY, self.playerWidth, self.playerHeight))
+        player = pygame.draw.rect(screen, self.playerColor, pygame.Rect(self.playerX, self.playerY, self.playerWidth, self.playerHeight))
 
         return player
 
@@ -75,8 +75,8 @@ size = width, height = 1920, 1080
 screen = pygame.display.set_mode(size)
 playerTwoX = width - width * 0.0075
 
-playerOne = Player(0, 0, 1)
-playerTwo = Player(playerTwoX, 0, 2)
+playerOne = Player(0, 0)
+playerTwo = Player(playerTwoX, 0)
 
 
 while True:
