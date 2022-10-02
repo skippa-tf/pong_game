@@ -16,8 +16,8 @@ class Player():
         self.Controls = {
             pygame.K_w: 'w',
             pygame.K_s: 's',
-            pygame.K_UP: 'UP',
-            pygame.K_DOWN: 'DOWN'
+            pygame.K_i: 'i',
+            pygame.K_k: 'k'
             }
         pass
 
@@ -51,10 +51,10 @@ class Player():
 
         if keys:
             for key in keys:
-                if 'w' or 'UP' in keys:
+                if key == self.Controls[pygame.K_w] or self.Controls[pygame.K_i]:
                     self.playerY = self.movePaddle('up')
                     
-                elif 's' or 'DOWN' in keys:
+                elif key == self.Controls[pygame.K_s] or self.Controls[pygame.K_k]:
                     self.playerY = self.movePaddle('dn')
 
         else:
@@ -66,8 +66,7 @@ class Player():
     
     def movePaddle(self, direction: str):
         """Moves the paddle a certain direction."""
-
-        if direction == 'up': #and self.playerY > 0:
+        if direction == 'up' and self.playerY > 0:
             self.playerY -= self.moveSpeed
 
         elif direction == 'dn' and self.playerY < (height - self.playerHeight):
