@@ -7,8 +7,8 @@ class Player():
     
     def __init__(self, playerX, playerY, playerNum: int):
         self.playerColor = 255, 255, 255
-        self.playerX = playerX
-        self.playerY = playerY
+        self.playerX = float(playerX)
+        self.playerY = float(playerY)
         self.playerHeight = height * 0.15
         self.playerWidth = width * 0.0075
         self.heldKeys = []
@@ -67,10 +67,10 @@ class Player():
         if keys:
             for key in keys:
                 if key in self.playerControls:
-                    if key == self.playerControls[pygame.K_w] or self.playerControls[pygame.K_i]:
+                    if key == 'w' or 'i':
                         self.playerY = self.movePaddle('up')
                     
-                    elif key == self.playerControls[pygame.K_s] or self.playerControls[pygame.K_k]:
+                    elif key == 's' or 'k':
                         self.playerY = self.movePaddle('dn')
 
         else:
@@ -83,10 +83,10 @@ class Player():
     def movePaddle(self, direction: str):
         """Moves the paddle a certain direction."""
 
-        if direction == 'up' and self.playerY > 0:
+        if direction == 'up' and self.playerY > 0.0:
             self.playerY -= self.moveSpeed
 
-        elif direction == 'dn' and self.playerY < (height - self.playerHeight):
+        elif direction == 'dn' and self.playerY < (float(height) - self.playerHeight):
             self.playerY += self.moveSpeed
 
         return self.playerY
